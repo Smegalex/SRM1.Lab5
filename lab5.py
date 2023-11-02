@@ -8,7 +8,7 @@ F = [1, 0, 1, 0, 0, 1, 1, 0]
 F1 = [0, 1, 0, 1, 1, 1, 1, 0]
 
 
-def build_truth_table(x: list, y: list, z: list, F: list):
+def build_truth_table(F: list):
     print(f"{x[-1]} | {y[-1]} | {z[-1]} || F")
     for i in range(len(F)):
         print(f"{x[i]} | {y[i]} | {z[i]} || {F[i]}")
@@ -24,7 +24,7 @@ def find_dual_function(F: list):
 
 
 # Досконала диз’юнктивна нормальна форма (ДДНФ)
-def to_perfect_disjunctive_normal_form(x: list, y: list, z: list, F: list):
+def to_perfect_disjunctive_normal_form(F: list):
     result = "F(x, y, z) = "
     arguments = [x, y, z]
     for i in range(len(F)):
@@ -45,7 +45,7 @@ def to_perfect_disjunctive_normal_form(x: list, y: list, z: list, F: list):
 
 
 # Досконала кон’юнктивна нормальна форма (ДКНФ)
-def to_perfect_conjunctive_normal_form(x: list, y: list, z: list, F: list):
+def to_perfect_conjunctive_normal_form(F: list):
     result = "F(x, y, z) = "
     arguments = [x, y, z]
     for i in range(len(F)):
@@ -66,7 +66,7 @@ def to_perfect_conjunctive_normal_form(x: list, y: list, z: list, F: list):
 
 
 # Поліном Жегалкіна
-def to_zhegalkin_polynomial(x: list, y: list, z: list, F: list):
+def to_zhegalkin_polynomial(F: list):
     result = "P(x, y, z) = "
     arguments = [x, y, z]
     for i in range(len(F)):
@@ -87,14 +87,14 @@ def to_zhegalkin_polynomial(x: list, y: list, z: list, F: list):
 
 
 # Чи зберігає константи 1 і 0
-def saves_constant_one(x: list, y: list, z: list, F: list):
+def saves_constant_one(F: list):
     for i in range(len(F)):
         if F[i] and x[i] and y[i] and z[i]:
             return True
     return False
 
 
-def saves_constant_zero(x: list, y: list, z: list, F: list):
+def saves_constant_zero(F: list):
     for i in range(len(F)):
         if not F[i] and not x[i] and not y[i] and not z[i]:
             return True
@@ -102,7 +102,7 @@ def saves_constant_zero(x: list, y: list, z: list, F: list):
 
 
 # Перевірка монотонності
-def is_monotonic(x: list, y: list, z: list, F: list):
+def is_monotonic(F: list):
     arguments = [x, y, z]
     for i in range(len(F)):
         if F[i]:
@@ -127,7 +127,7 @@ def is_monotonic(x: list, y: list, z: list, F: list):
 
 
 # Перевірка лінійності
-def is_linear(x: list, y: list, z: list, F: list):
+def is_linear(F: list):
     xyz = [x, y, z]
     arguments = {"a": None, "ax": None, "ay": None, "az": None,
                  "axy": None, "ayz": None, "axz": None, "axyz": None}
@@ -191,29 +191,29 @@ def is_linear(x: list, y: list, z: list, F: list):
 
 if __name__ == "__main__":
     print("Таблиця істинності даної функції.")
-    build_truth_table(x, y, z, F)
+    build_truth_table(F)
     print("Таблиця істинності функції, двоїстої до заданої функції.")
-    build_truth_table(x, y, z, find_dual_function(F))
+    build_truth_table(find_dual_function(F))
 
     print("Функція, подана в ДДНФ:")
-    print(to_perfect_disjunctive_normal_form(x, y, z, F) + "\n")
+    print(to_perfect_disjunctive_normal_form(F) + "\n")
 
     print("Функція, подана в ДКНФ:")
-    print(to_perfect_conjunctive_normal_form(x, y, z, F) + "\n")
+    print(to_perfect_conjunctive_normal_form(F) + "\n")
 
     print("Функція, представлена поліномом Жегалкіна:")
-    print(to_zhegalkin_polynomial(x, y, z, F) + "\n")
+    print(to_zhegalkin_polynomial(F) + "\n")
 
-    if saves_constant_zero(x, y, z, F):
+    if saves_constant_zero(F):
         print("Функція зберігає константу 0" + "\n")
-    if saves_constant_one(x, y, z, F):
+    if saves_constant_one(F):
         print("Функція зберігає константу 1" + "\n")
     if F == find_dual_function(F):
         print("Функція є самодвоїстою." + "\n")
-    if is_monotonic(x, y, z, F):
+    if is_monotonic(F):
         print("Функція є монотонною." + "\n")
 
-    linear_form, bool_linear = is_linear(x, y, z, F)
+    linear_form, bool_linear = is_linear(F)
     if bool_linear:
         print("Функція є лінійною.\nЇї лінійна форма")
     print("Розкритий поліном Жегалкіна:")
