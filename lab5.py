@@ -174,6 +174,7 @@ def is_linear(F: list):
                         else:
                             arguments[key] = 0
 
+    # створення візуального вигляду функції (поліному Жегалкіна у розкритому вигляді)
     for k, item in arguments.items():
         if k == "a":
             linear_form += str(item)
@@ -183,6 +184,7 @@ def is_linear(F: list):
             linear_form += k[1:]
             if len(k[1:]) > 1:
                 bool_linear = False
+
     print(arguments)
     return linear_form, bool_linear
 
