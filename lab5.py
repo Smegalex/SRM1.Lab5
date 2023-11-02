@@ -88,16 +88,14 @@ def to_zhegalkin_polynomial(F: list):
 
 # Чи зберігає константи 1 і 0
 def saves_constant_one(F: list):
-    for i in range(len(F)):
-        if F[i] and x[i] and y[i] and z[i]:
-            return True
+    if F[-1]:
+        return True
     return False
 
 
 def saves_constant_zero(F: list):
-    for i in range(len(F)):
-        if not F[i] and not x[i] and not y[i] and not z[i]:
-            return True
+    if F[0]:
+        return True
     return False
 
 
