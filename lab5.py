@@ -131,36 +131,35 @@ def is_linear(F: list):
                  "axy": None, "ayz": None, "axz": None, "axyz": None}
     formula = 0
     linear_form = ""
-    buffer = False
+    buffer = []
     bool_linear = True
     key = ""
 
     for i in range(len(F)):
-        buffer = False
+        buffer = []
         for j in xyz:
-            if j[i] == 0:
-                continue
-            if j[i] == 1 and not buffer:
-                buffer = []
+            if j[i] == 1:
                 buffer.append(j)
-            elif j[i] == 1:
-                buffer.append(j)
-        if not buffer:
+
+        if len(buffer) == 0:
             arguments['a'] = F[i]
-            # print(keys[i], arguments[keys[i]])
             continue
-        if len(buffer) == 1:
+
+        elif len(buffer) == 1:
             if 1 ^ arguments['a'] == F[i]:
                 arguments['a'+buffer[0][-1]] = 1
             else:
                 arguments['a'+buffer[0][-1]] = 0
+
         elif len(buffer) > 1:
             formula = 0
             key = 'a'
+
             for k in range(len(buffer)):
                 if k == 0:
-                    formula = arguments[key]
+                    formula = arguments['a']
                 formula = formula ^ arguments[key+buffer[k][-1]]
+
             for s in range(len(buffer)-1):
                 for v in range(len(buffer)-1-s):
                     key = 'a'
